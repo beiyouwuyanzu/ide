@@ -643,108 +643,21 @@ int main() {\n\
 ";
 
 var competitiveProgrammingSource = "\
-#include <algorithm>\n\
-#include <cstdint>\n\
-#include <iostream>\n\
-#include <limits>\n\
-#include <set>\n\
-#include <utility>\n\
-#include <vector>\n\
+#include<bits/stdc++.h>\n\
+using namespace std;\n\
+#define dbg(x...) do { cout << \"[\" << #x <<\" -> \"; err(x); } while (0)\n\
+void err() { cout << \"]\" << endl; }\n\
+template<class T, class... Ts> void err(const T& arg,const Ts&... args) { cout << arg << \" \"; err(args...); }\n\
+#define int long long\n\
 \n\
-using Vertex    = std::uint16_t;\n\
-using Cost      = std::uint16_t;\n\
-using Edge      = std::pair< Vertex, Cost >;\n\
-using Graph     = std::vector< std::vector< Edge > >;\n\
-using CostTable = std::vector< std::uint64_t >;\n\
-\n\
-constexpr auto kInfiniteCost{ std::numeric_limits< CostTable::value_type >::max() };\n\
-\n\
-auto dijkstra( Vertex const start, Vertex const end, Graph const & graph, CostTable & costTable )\n\
-{\n\
-    std::fill( costTable.begin(), costTable.end(), kInfiniteCost );\n\
-    costTable[ start ] = 0;\n\
-\n\
-    std::set< std::pair< CostTable::value_type, Vertex > > minHeap;\n\
-    minHeap.emplace( 0, start );\n\
-\n\
-    while ( !minHeap.empty() )\n\
-    {\n\
-        auto const vertexCost{ minHeap.begin()->first  };\n\
-        auto const vertex    { minHeap.begin()->second };\n\
-\n\
-        minHeap.erase( minHeap.begin() );\n\
-\n\
-        if ( vertex == end )\n\
-        {\n\
-            break;\n\
-        }\n\
-\n\
-        for ( auto const & neighbourEdge : graph[ vertex ] )\n\
-        {\n\
-            auto const & neighbour{ neighbourEdge.first };\n\
-            auto const & cost{ neighbourEdge.second };\n\
-\n\
-            if ( costTable[ neighbour ] > vertexCost + cost )\n\
-            {\n\
-                minHeap.erase( { costTable[ neighbour ], neighbour } );\n\
-                costTable[ neighbour ] = vertexCost + cost;\n\
-                minHeap.emplace( costTable[ neighbour ], neighbour );\n\
-            }\n\
-        }\n\
-    }\n\
-\n\
-    return costTable[ end ];\n\
-}\n\
-\n\
-int main()\n\
-{\n\
-    constexpr std::uint16_t maxVertices{ 10000 };\n\
-\n\
-    Graph     graph    ( maxVertices );\n\
-    CostTable costTable( maxVertices );\n\
-\n\
-    std::uint16_t testCases;\n\
-    std::cin >> testCases;\n\
-\n\
-    while ( testCases-- > 0 )\n\
-    {\n\
-        for ( auto i{ 0 }; i < maxVertices; ++i )\n\
-        {\n\
-            graph[ i ].clear();\n\
-        }\n\
-\n\
-        std::uint16_t numberOfVertices;\n\
-        std::uint16_t numberOfEdges;\n\
-\n\
-        std::cin >> numberOfVertices >> numberOfEdges;\n\
-\n\
-        for ( auto i{ 0 }; i < numberOfEdges; ++i )\n\
-        {\n\
-            Vertex from;\n\
-            Vertex to;\n\
-            Cost   cost;\n\
-\n\
-            std::cin >> from >> to >> cost;\n\
-            graph[ from ].emplace_back( to, cost );\n\
-        }\n\
-\n\
-        Vertex start;\n\
-        Vertex end;\n\
-\n\
-        std::cin >> start >> end;\n\
-\n\
-        auto const result{ dijkstra( start, end, graph, costTable ) };\n\
-\n\
-        if ( result == kInfiniteCost )\n\
-        {\n\
-            std::cout << \"NO\\n\";\n\
-        }\n\
-        else\n\
-        {\n\
-            std::cout << result << '\\n';\n\
-        }\n\
-    }\n\
-\n\
+signed main(){\n\
+    ios::sync_with_stdio(false);\n\
+    cin.tie(nullptr); cout.tie(nullptr);\n\
+    \n\
+    int T;\n\
+    cin >> T;\n\
+    \n\
+    \n\
     return 0;\n\
 }\n\
 ";
@@ -872,7 +785,80 @@ var prologSource = "\
 main :- write('hello, world\\n').\n\
 ";
 
-var pythonSource = "print(\"hello, world\")";
+var pythonSource = "\
+import sys\n\
+import os\n\
+from io import BytesIO, IOBase\n\
+BUFSIZE = 8192\n\
+class FastIO(IOBase):\n\
+    newlines = 0\n\
+    def __init__(self, file):\n\
+        self._fd = file.fileno()\n\
+        self.buffer = BytesIO()\n\
+        self.writable = \"x\" in file.mode or \"r\" not in file.mode\n\
+        self.write = self.buffer.write if self.writable else None\n\
+    def read(self):\n\
+        while True:\n\
+            b = os.read(self._fd, max(os.fstat(self._fd).st_size, BUFSIZE))\n\
+            if not b:\n\
+                break\n\
+            ptr = self.buffer.tell()\n\
+            self.buffer.seek(0, 2), self.buffer.write(b), self.buffer.seek(ptr)\n\
+        self.newlines = 0\n\
+        return self.buffer.read()\n\
+    def readline(self):\n\
+        while self.newlines == 0:\n\
+            b = os.read(self._fd, max(os.fstat(self._fd).st_size, BUFSIZE))\n\
+            self.newlines = b.count(b\"\\n\") + (not b)\n\
+            ptr = self.buffer.tell()\n\
+            self.buffer.seek(0, 2), self.buffer.write(b), self.buffer.seek(ptr)\n\
+        self.newlines -= 1\n\
+        return self.buffer.readline()\n\
+    def flush(self):\n\
+        if self.writable:\n\
+            os.write(self._fd, self.buffer.getvalue())\n\
+            self.buffer.truncate(0), self.buffer.seek(0)\n\
+class IOWrapper(IOBase):\n\
+    def __init__(self, file):\n\
+        self.buffer = FastIO(file)\n\
+        self.flush = self.buffer.flush\n\
+        self.writable = self.buffer.writable\n\
+        self.write = lambda s: self.buffer.write(s.encode(\"ascii\"))\n\
+        self.read = lambda: self.buffer.read().decode(\"ascii\")\n\
+        self.readline = lambda: self.buffer.readline().decode(\"ascii\")\n\
+sys.stdin, sys.stdout = IOWrapper(sys.stdin), IOWrapper(sys.stdout)\n\
+input = lambda: sys.stdin.readline().rstrip(\"\\r\\n\")\n\
+\n\
+\n\
+def I():\n\
+    return input()\n\
+def II():\n\
+    return int(input())\n\
+def MI():\n\
+    return map(int, input().split())\n\
+def LI():\n\
+    return list(input().split())\n\
+def LII():\n\
+    return list(map(int, input().split()))\n\
+def GMI():\n\
+    return map(lambda x: int(x) - 1, input().split())\n\
+\n\
+\n\
+#------------------------------FastIO---------------------------------\n\
+\n\
+\n\
+from bisect import *\n\
+from heapq import *\n\
+from collections import *\n\
+from functools import *\n\
+from itertools import *\n\
+from time import *\n\
+from random import *\n\
+#dfs - stack#\n\
+#check top!#\n\
+\n\
+sys.setrecursionlimit(3000010)\n\n\n\
+";
 
 var rSource = "cat(\"hello, world\\n\")";
 
@@ -1324,27 +1310,13 @@ var languageApiUrlTable = {
     1024: extraApiUrl
 }
 
-var competitiveProgrammingInput = "\
-3\n\
-3 2\n\
-1 2 5\n\
-2 3 7\n\
-1 3\n\
-3 3\n\
-1 2 4\n\
-1 3 7\n\
-2 3 1\n\
-1 3\n\
-3 1\n\
-1 2 4\n\
-1 3\n\
-";
+var competitiveProgrammingInput = "";
 
 var inputs = {
     54: competitiveProgrammingInput
 }
 
-var competitiveProgrammingCompilerOptions = "-O3 --std=c++17 -Wall -Wextra -Wold-style-cast -Wuseless-cast -Wnull-dereference -Werror -Wfatal-errors -pedantic -pedantic-errors";
+var competitiveProgrammingCompilerOptions = "-O3 --std=c++17 -Wall";
 
 var compilerOptions = {
     54: competitiveProgrammingCompilerOptions
