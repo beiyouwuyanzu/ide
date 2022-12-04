@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
 
-    <meta name="description" content="Free and open-source online code editor that allows you to write and execute code from a rich set of languages.">
+    <meta name="description" content="个人ide.">
     <meta name="keywords" content="online editor, online code editor, online ide, online compiler, online interpreter, run code online, learn programming online,
             online debugger, programming in browser, online code runner, online code execution, debug online, debug C code online, debug C++ code online,
             programming online, snippet, snippets, code snippet, code snippets, pastebin, execute code, programming in browser, run c online, run C++ online,
@@ -47,7 +47,7 @@
 
     <link type="text/css" rel="stylesheet" href="css/ide.css">
 
-    <title>Judge0 IDE - Free and open-source online code editor</title>
+    <title>Judge0 IDE - modified by wyq</title>
     <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
     <link rel="icon" href="./favicon.ico" type="image/x-icon">
 </head>
@@ -145,11 +145,16 @@
                     <input id="compiler-options" type="text" placeholder="Compiler options"></input>
                 </div>
             </div>
-            <div class="item borderless wide screen only">
+            <div class="item borderless wide screen only" style="display: none;">
                 <div class="ui input">
-                    <input id="command-line-arguments" type="text" placeholder="Command line arguments"></input>
+                    <input id="command-line-arguments" type="password" placeholder="Token"></input>
                 </div>
             </div>
+            <!--<div class="item fitted borderless wide screen only">-->
+            <!--    <div class="ui input">-->
+            <!--        <input id="token" type="text" placeholder="Token"></input>-->
+            <!--    </div>-->
+            <!--</div>-->
             <div class="item no-left-padding borderless">
                 <button id="run-btn" class="ui primary labeled icon button"><i class="play icon"></i>Run (F9)</button>
             </div>

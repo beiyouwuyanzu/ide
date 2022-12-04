@@ -274,6 +274,7 @@ function run() {
             type: "POST",
             async: true,
             contentType: "application/json",
+            headers: { 'X-Auth-Token': `${commandLineArguments}`},
             data: JSON.stringify(data),
             xhrFields: {
                 withCredentials: apiUrl.indexOf("/secure") != -1 ? true : false
