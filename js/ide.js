@@ -24,6 +24,7 @@ var currentLanguageId;
 var $selectLanguage;
 var $compilerOptions;
 var $commandLineArguments;
+var $inputToken;
 var $insertTemplateBtn;
 var $runBtn;
 var $navigationMessage;
@@ -253,6 +254,7 @@ function run() {
     var languageId = resolveLanguageId($selectLanguage.val());
     var compilerOptions = $compilerOptions.val();
     var commandLineArguments = $commandLineArguments.val();
+    var inputToken = $inputToken.val();
 
     if (parseInt(languageId) === 44) {
         sourceValue = sourceEditor.getValue();
@@ -274,7 +276,7 @@ function run() {
             type: "POST",
             async: true,
             contentType: "application/json",
-            headers: { 'X-Auth-Token': `${commandLineArguments}`},
+            headers: { 'X-Auth-Token': `${inputToken}`},
             data: JSON.stringify(data),
             xhrFields: {
                 withCredentials: apiUrl.indexOf("/secure") != -1 ? true : false
@@ -440,6 +442,9 @@ $(document).ready(function () {
     $compilerOptions = $("#compiler-options");
     $commandLineArguments = $("#command-line-arguments");
     $commandLineArguments.attr("size", $commandLineArguments.attr("placeholder").length);
+    
+    $inputToken = $("#input-token");
+    $inputToken.attr("size", $inputToken.attr("placeholder").length);
 
     $insertTemplateBtn = $("#insert-template-btn");
     $insertTemplateBtn.click(function (e) {
