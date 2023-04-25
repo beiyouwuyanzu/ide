@@ -650,9 +650,13 @@ int main() {\n\
 var competitiveProgrammingSource = "\
 #include<bits/stdc++.h>\n\
 using namespace std;\n\
+#ifdef LOCAL\n\
 #define dbg(x...) do { cout << \"[\" << #x <<\" -> \"; err(x); } while (0)\n\
 void err() { cout << \"]\" << endl; }\n\
 template<class T, class... Ts> void err(const T& arg,const Ts&... args) { cout << arg << \" \"; err(args...); }\n\
+#else\n\
+#define dbg(x...){}\n\
+#endif\n\
 #define int long long\n\
 \n\
 signed main(){\n\
@@ -862,7 +866,7 @@ from random import *\n\
 #dfs - stack#\n\
 #check top!#\n\
 \n\
-sys.setrecursionlimit(3000010)\n\n\n\
+#sys.setrecursionlimit(3000010)\n\n\n\
 ";
 
 var rSource = "cat(\"hello, world\\n\")";
@@ -1321,7 +1325,7 @@ var inputs = {
     54: competitiveProgrammingInput
 }
 
-var competitiveProgrammingCompilerOptions = "-O3 --std=c++17 -Wall";
+var competitiveProgrammingCompilerOptions = "-O3 --std=c++17 -Wall -DLOCAL";
 
 var compilerOptions = {
     54: competitiveProgrammingCompilerOptions
